@@ -12,5 +12,8 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        GameLoopView gameLoopView = (GameLoopView) findViewById(R.id.GameLoopView);
+        gameLoopView.setTextView(textView);
     }
 }
