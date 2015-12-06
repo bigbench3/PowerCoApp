@@ -211,6 +211,62 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
             return true;
         }
 
+        public Hamster getHamster() {
+            return hamster;
+        }
+
+        public void setHamster(Hamster hamster) {
+            this.hamster = hamster;
+        }
+
+        public Resource getWater() {
+            return water;
+        }
+
+        public void setWater(Resource water) {
+            this.water = water;
+        }
+
+        public Resource getCoal() {
+            return coal;
+        }
+
+        public void setCoal(Resource coal) {
+            this.coal = coal;
+        }
+
+        public Resource getWind() {
+            return wind;
+        }
+
+        public void setWind(Resource wind) {
+            this.wind = wind;
+        }
+
+        public Resource getSolar() {
+            return solar;
+        }
+
+        public void setSolar(Resource solar) {
+            this.solar = solar;
+        }
+
+        public Salesman getSalesman() {
+            return salesman;
+        }
+
+        public void setSalesman(Salesman salesman) {
+            this.salesman = salesman;
+        }
+
+        public House getHouse() {
+            return house;
+        }
+
+        public void setHouse(House house) {
+            this.house = house;
+        }
+
     }
 
     /* THE GAME */
