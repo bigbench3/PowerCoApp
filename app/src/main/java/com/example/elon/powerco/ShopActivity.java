@@ -15,4 +15,36 @@ public class ShopActivity extends Activity {
 
     }
 
+    public void onWheelUpgrade(){
+
+    }
+
+    public void onPriceUpgrade(){
+
+    }
+
+    public void onSaleSpeedUpgrade(){
+
+    }
+
+    public void onHouseUpgrade(){
+
+    }
+
+    public void onWaterUpgrade(){
+
+    }
+
+    public void onWindUpgrade(){
+
+    }
+
+    public void onSolarUpgrade(){
+
+    }
+
+    public void onCoalUpgrade(){
+
+    }
+
 }

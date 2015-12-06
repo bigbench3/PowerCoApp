@@ -3,7 +3,9 @@ package com.example.elon.powerco;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class Salesman {
     private int speed, price;
     private int level;
-    private float width, height;
+    private float width, height, x, y;
     private Bitmap bitmap;
     private int screenWidth, screenHeight;
     private final float SCALE = 0.1f;
@@ -25,10 +27,10 @@ public class Salesman {
 
         salesman = new ArrayList<>();
 
-        salesman.add(R.drawable.salesman0);
-        salesman.add(R.drawable.salesman1);
-        salesman.add(R.drawable.salesman2);
-        salesman.add(R.drawable.salesman3);
+//        salesman.add(R.drawable.salesman0);
+//        salesman.add(R.drawable.salesman1);
+//        salesman.add(R.drawable.salesman2);
+//        salesman.add(R.drawable.salesman3);
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), salesman.get(level));
 
@@ -44,8 +46,17 @@ public class Salesman {
         screenHeight = size.y;
 
         // start in top/left corner
-        x = screenWidth/4;
-        y = screenHeight/4;
+        x = screenWidth/2;
+        y = screenHeight/2;
+    }
+
+    public void doDraw(Canvas canvas) {
+        // draw the house
+        canvas.drawBitmap(bitmap,
+                null,
+                new Rect((int) (x + width/2), 0,
+                         (screenWidth), (int) (y - height/2)),
+                null);
     }
 
     public float getSpeed() {

@@ -18,6 +18,7 @@ public class Resource {
     private String type;
     private int level;
     private float width, height;
+    private float x, y;
     private Bitmap bitmap;
     private int screenWidth, screenHeight;
     private final float SCALE = 0.1f;
@@ -30,25 +31,25 @@ public class Resource {
         solar = new ArrayList<>();
         coal = new ArrayList<>();
 
-        water.add(R.drawable.water0);
-        water.add(R.drawable.water1);
-        water.add(R.drawable.water2);
-        water.add(R.drawable.water3);
-
-        wind.add(R.drawable.wind0);
-        wind.add(R.drawable.wind1);
-        wind.add(R.drawable.wind2);
-        wind.add(R.drawable.wind3);
-
-        solar.add(R.drawable.solar0);
-        solar.add(R.drawable.solar1);
-        solar.add(R.drawable.solar2);
-        solar.add(R.drawable.solar3);
-
-        coal.add(R.drawable.coal0);
-        coal.add(R.drawable.coal1);
-        coal.add(R.drawable.coal2);
-        coal.add(R.drawable.coal3);
+//        water.add(R.drawable.water0);
+//        water.add(R.drawable.water1);
+//        water.add(R.drawable.water2);
+//        water.add(R.drawable.water3);
+//
+//        wind.add(R.drawable.wind0);
+//        wind.add(R.drawable.wind1);
+//        wind.add(R.drawable.wind2);
+//        wind.add(R.drawable.wind3);
+//
+//        solar.add(R.drawable.solar0);
+//        solar.add(R.drawable.solar1);
+//        solar.add(R.drawable.solar2);
+//        solar.add(R.drawable.solar3);
+//
+//        coal.add(R.drawable.coal0);
+//        coal.add(R.drawable.coal1);
+//        coal.add(R.drawable.coal2);
+//        coal.add(R.drawable.coal3);
 
 
         String resourceType = getType();
@@ -77,17 +78,45 @@ public class Resource {
         screenHeight = size.y;
 
         // start in top/left corner
-        x = screenWidth/4;
-        y = screenHeight/4;
+        x = screenWidth/2;
+        y = screenHeight/2;
     }
 
     public void doDraw(Canvas canvas) {
-        // draw the bird
-        canvas.drawBitmap(bitmap,
-                null,
-                new Rect((int) (x - width/2), (int) (y- height/2),
-                        (int) (x + width/2), (int) (y + height/2)),
-                null);
+        // draw the Resource
+
+        if(type.equals("water")) {
+            canvas.drawBitmap(bitmap,
+                    null,
+                    new Rect(0, 0,
+                            (int) (x - width / 2), (int) (y - screenHeight/ 2)),
+                    null);
+        }
+
+        if(type.equals("solar")) {
+            canvas.drawBitmap(bitmap,
+                    null,
+                    new Rect(0, (int)(y - screenHeight/2),
+                            (int) (x - width / 2), (int) (y)),
+                    null);
+        }
+
+        if(type.equals("wind")) {
+            canvas.drawBitmap(bitmap,
+                    null,
+                    new Rect(0, (int)(y),
+                            (int) (x - width / 2), (int) (y + screenHeight/2)),
+                    null);
+
+            if(type.equals("coal")) {
+                canvas.drawBitmap(bitmap,
+                        null,
+                        new Rect(0, (int)(y + screenHeight),
+                                (int) (x - width / 2), (int) (screenHeight)),
+                        null);
+            }
+        }
+
     }
 
     public String getType() {

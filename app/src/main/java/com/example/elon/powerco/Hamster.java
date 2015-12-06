@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Hamster {
     protected float x, y;
-    private int hamsterLevel, wheelLevel,;
+    private int hamsterLevel, wheelLevel;
     private float width, height;
     private Bitmap bitmap;
     private int screenWidth, screenHeight;
@@ -29,10 +29,10 @@ public class Hamster {
 
         hamster = new ArrayList<>();
 
-        hamster.add(R.drawable.hamster0);
-        hamster.add(R.drawable.hamster1);
-        hamster.add(R.drawable.hamster2);
-        hamster.add(R.drawable.hamster3);
+//        hamster.add(R.drawable.hamster0);
+//        hamster.add(R.drawable.hamster1);
+//        hamster.add(R.drawable.hamster2);
+//        hamster.add(R.drawable.hamster3);
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), hamster.get(hamsterLevel));
 
@@ -53,7 +53,7 @@ public class Hamster {
     }
 
     public void doDraw(Canvas canvas) {
-        // draw the bird
+        // draw the Hamster
         canvas.drawBitmap(bitmap,
                 null,
                 new Rect((int) (x - width/2), (int) (y- height/2),

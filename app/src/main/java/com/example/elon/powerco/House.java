@@ -28,10 +28,10 @@ public class House {
 
         house = new ArrayList<>();
 
-    house.add(R.drawable.house0);
-    house.add(R.drawable.house1);
-    house.add(R.drawable.house2);
-    house.add(R.drawable.house3);
+//    house.add(R.drawable.house0);
+//    house.add(R.drawable.house1);
+//    house.add(R.drawable.house2);
+//    house.add(R.drawable.house3);
 
     bitmap = BitmapFactory.decodeResource(context.getResources(), house.get(houseLevel));
 
@@ -51,11 +51,11 @@ public class House {
 }
 
     public void doDraw(Canvas canvas) {
-        // draw the bird
+        // draw the house
         canvas.drawBitmap(bitmap,
                 null,
-                new Rect((int) (x - width/2), (int) (y- height/2),
-                        (int) (x + width/2), (int) (y + height/2)),
+                new Rect((int) (x + width/2), (int) (y- height/2),
+                        (int) (x + x), (int) (y + height/2)),
                 null);
     }
 }

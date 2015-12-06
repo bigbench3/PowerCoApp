@@ -32,10 +32,13 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
     private SurfaceHolder surfaceHolder;
     private Context context;
     private final String filename = "myoutput.txt";
-    private EditText edittext;
     private int watts;
     private float money;
-
+    private TextView wattView, moneyView;
+    private Hamster hamster;
+    private Resource water, coal, wind, solar;
+    private Salesman salesman;
+    private House house;
 
     public GameLoopView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,18 +50,89 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
+
+
         // game loop thread -- add a handler to update the TextView
         thread = new GameLoopThread(msgHandler);
+
     }
 
-    private void getPersistentData() throws IOException {
-        Context context = getBaseContext();
+    Handler msgHandler = new Handler() {
+        public void handleMessage(Message m) {
+            wattView.setText(m.getData().getString("data"));
+            moneyView.setText(m.getData().getString("data"));
+        }
+    };
+
+    public void setWattView(TextView textView){this.wattView = textView;}
+
+    public void setMoneyView(TextView textView){this.moneyView = textView;}
+
+    public int getWatts() { return watts; }
+
+    public void setWatts(int watts) { this.watts = watts; }
+
+    public float getMoney() { return money; }
+
+    public void setMoney(float money) { this.money = money; }
+
+    public Hamster getHamster() {
+        return hamster;
+    }
+
+    public void setHamster(Hamster hamster) {
+        this.hamster = hamster;
+    }
+
+    public Resource getWater() {
+        return water;
+    }
+
+    public void setWater(Resource water) {
+        this.water = water;
+    }
+
+    public Resource getCoal() {
+        return coal;
+    }
+
+    public void setCoal(Resource coal) {
+        this.coal = coal;
+    }
+
+    public Resource getWind() {
+        return wind;
+    }
+
+    public void setWind(Resource wind) {
+        this.wind = wind;
+    }
+
+    public Resource getSolar() {
+        return solar;
+    }
+
+    public void setSolar(Resource solar) {
+        this.solar = solar;
+    }
+
+    public Salesman getSalesman() { return salesman; }
+
+    public void setSalesman(Salesman salesman) { this.salesman = salesman; }
+
+    public House getHouse() { return house; }
+
+    public void setHouse(House house) { this.house = house; }
+
+
+    private void getPersistentData(Context context) throws IOException {
         BufferedReader reader = null;
         try {
             InputStream in = context.openFileInput(filename);
             reader = new BufferedReader(new InputStreamReader(in));
             String line = reader.readLine();
-            edittext.setText(line);
+            wattView.setText("Watts: " + watts);
+            moneyView.setText("Money: $" + money);
         } finally {
             if (reader != null) {
                 reader.close();
@@ -66,13 +140,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         }
     }
 
-    private void putPersistentData() throws IOException {
-        Context context = getBaseContext();
+    private void putPersistentData(Context context) throws IOException {
         Writer writer = null;
         try {
             OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
-            writer.write(edittext.getText().toString());
         } finally {
             if (writer != null) {
                 writer.close();
@@ -114,14 +186,8 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
     // Game Loop Thread
     private class GameLoopThread extends Thread {
 
-
-        private Hamster hamster;
-        private Resource water, coal, wind, solar;
-        private Salesman salesman;
-        private House house;
-
         private boolean isRunning = false;
-        private long lastTime;
+        private long lastTimeMoney, lastTimeResources;
 
         // frames per second calculation
         private int frames;
@@ -166,7 +232,9 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         @Override
         public void run() {
 
-            lastTime = System.currentTimeMillis();
+
+            lastTimeMoney = System.currentTimeMillis();
+            lastTimeResources = System.currentTimeMillis();
 
             while (isRunning) {
 
@@ -182,15 +250,24 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
                     // compute how much time since last time around
                     long now = System.currentTimeMillis();
-                    double elapsed = (now - lastTime) / 1000.0;
-                    lastTime = now;
 
-                    // update/draw
-                    doUpdate(elapsed);
+
+
+                    if(now >= lastTimeMoney + 10000){
+                        lastTimeMoney = now;
+                        doUpdateMoney(salesman);
+                    }
+
+                    if(now >= lastTimeResources + 1000){
+                        lastTimeResources = now;
+                        doUpdateResource(water);
+                        doUpdateResource(solar);
+                        doUpdateResource(wind);
+                        doUpdateResource(coal);
+                    }
+
                     doDraw(canvas);
 
-                    // compute and show FPS
-                    updateFPS(now);
 
                 }
 
@@ -202,69 +279,12 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         }
 
         // touch events
-        @Override
         public boolean onTouchEvent(MotionEvent event) {
 
             watts = watts + (hamster.getHamsterLevel()*hamster.getHamsterLevel());
 
 
             return true;
-        }
-
-        public Hamster getHamster() {
-            return hamster;
-        }
-
-        public void setHamster(Hamster hamster) {
-            this.hamster = hamster;
-        }
-
-        public Resource getWater() {
-            return water;
-        }
-
-        public void setWater(Resource water) {
-            this.water = water;
-        }
-
-        public Resource getCoal() {
-            return coal;
-        }
-
-        public void setCoal(Resource coal) {
-            this.coal = coal;
-        }
-
-        public Resource getWind() {
-            return wind;
-        }
-
-        public void setWind(Resource wind) {
-            this.wind = wind;
-        }
-
-        public Resource getSolar() {
-            return solar;
-        }
-
-        public void setSolar(Resource solar) {
-            this.solar = solar;
-        }
-
-        public Salesman getSalesman() {
-            return salesman;
-        }
-
-        public void setSalesman(Salesman salesman) {
-            this.salesman = salesman;
-        }
-
-        public House getHouse() {
-            return house;
-        }
-
-        public void setHouse(House house) {
-            this.house = house;
         }
 
     }
@@ -304,7 +324,13 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     // draw all objects in the game
     private void doDraw(Canvas canvas) {
-
+        hamster.doDraw(canvas);
+        water.doDraw(canvas);
+        solar.doDraw(canvas);
+        wind.doDraw(canvas);
+        coal.doDraw(canvas);
+        house.doDraw(canvas);
+        salesman.doDraw(canvas);
     }
 
 
