@@ -33,6 +33,9 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
     private Context context;
     private final String filename = "myoutput.txt";
     private EditText edittext;
+    private int watts;
+    private float money;
+
 
     public GameLoopView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,6 +49,35 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
         // game loop thread -- add a handler to update the TextView
         thread = new GameLoopThread(msgHandler);
+    }
+
+    private void getPersistentData() throws IOException {
+        Context context = getBaseContext();
+        BufferedReader reader = null;
+        try {
+            InputStream in = context.openFileInput(filename);
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = reader.readLine();
+            edittext.setText(line);
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+    }
+
+    private void putPersistentData() throws IOException {
+        Context context = getBaseContext();
+        Writer writer = null;
+        try {
+            OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            writer = new OutputStreamWriter(out);
+            writer.write(edittext.getText().toString());
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
 
     @Override
@@ -79,47 +111,17 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         }
     }
 
-    private void getPersistentData() throws IOException {
-        Context context = getBaseContext();
-        BufferedReader reader = null;
-        try {
-            InputStream in = context.openFileInput(filename);
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = reader.readLine();
-            edittext.setText(line);
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
-        }
-    }
-
-    private void putPersistentData() throws IOException {
-        Context context = getBaseContext();
-        Writer writer = null;
-        try {
-            OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
-            writer = new OutputStreamWriter(out);
-            writer.write(edittext.getText().toString());
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
-        }
-    }
-
     // Game Loop Thread
     private class GameLoopThread extends Thread {
 
+
+        private Hamster hamster;
+        private Resource water, coal, wind, solar;
+        private Salesman salesman;
+        private House house;
+
         private boolean isRunning = false;
         private long lastTime;
-
-        // the bird sprite
-        private Bird bird;
-
-        // the clouds
-        private final int NUM_CLOUDS = 3;
-        private ArrayList<Cloud> clouds;
 
         // frames per second calculation
         private int frames;
@@ -128,23 +130,128 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         // the handler for updates to the TextView
         private Handler handler;
 
+
+
         public GameLoopThread(Handler handler) {
 
             this.handler = handler;
 
-            bird = new Bird(context);
+            hamster = new Hamster(context);
+            hamster.setHamsterLevel(0);
+            hamster.setWheelLevel(0);
 
-            clouds = new ArrayList<Cloud>();
-            for (int i = 0; i < NUM_CLOUDS; i++) {
-                clouds.add(new Cloud(context));
-            }
+            water = new Resource(context);
+            water.setType("water");
+            water.setLevel(0);
 
-            touchX = bird.x;
-            touchY = bird.y;
+            coal = new Resource(context);
+            coal.setType("coal");
+            coal.setLevel(0);
+
+            wind = new Resource(context);
+            wind.setType("wind");
+            wind.setLevel(0);
+
+            solar = new Resource(context);
+            solar.setType("solar");
+            solar.setLevel(0);
+
         }
 
         public void setIsRunning(boolean isRunning) {
             this.isRunning = isRunning;
         }
+
+        // the main loop
+        @Override
+        public void run() {
+
+            lastTime = System.currentTimeMillis();
+
+            while (isRunning) {
+
+                // grab hold of the canvas
+                Canvas canvas = surfaceHolder.lockCanvas();
+                if (canvas == null) {
+                    // trouble -- exit nicely
+                    isRunning = false;
+                    continue;
+                }
+
+                synchronized (surfaceHolder) {
+
+                    // compute how much time since last time around
+                    long now = System.currentTimeMillis();
+                    double elapsed = (now - lastTime) / 1000.0;
+                    lastTime = now;
+
+                    // update/draw
+                    doUpdate(elapsed);
+                    doDraw(canvas);
+
+                    // compute and show FPS
+                    updateFPS(now);
+
+                }
+
+                // release the canvas
+                if (canvas != null) {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
+            }
+        }
+
+        // touch events
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+
+            watts = watts + (hamster.getHamsterLevel()*hamster.getHamsterLevel());
+
+
+            return true;
+        }
+
     }
+
+    /* THE GAME */
+
+    // move all objects in the game
+    private void doUpdateResource(Resource resource) {
+
+        if(resource.getType().equals("water")){
+            watts = watts + (resource.getLevel()*10);
+        }
+
+        if(resource.getType().equals("solar")){
+            watts = watts + (resource.getLevel()*7);
+        }
+
+        if(resource.getType().equals("wind")){
+            watts = watts + (resource.getLevel()*4);
+        }
+
+        if(resource.getType().equals("coal")){
+            watts = watts + (resource.getLevel()*200);
+            if(resource.getLevel() > 0) {
+                resource.setLevel(resource.getLevel() - 1);
+            }
+        }
+    }
+
+    private void doUpdateMoney(Salesman salesman) {
+
+        if(watts >= salesman.getSpeed()){
+            watts = watts - (int)salesman.getSpeed();
+            money = money + (salesman.getSpeed() * salesman.getPrice());
+        }
+    }
+
+    // draw all objects in the game
+    private void doDraw(Canvas canvas) {
+
+    }
+
+
+
+
 }
