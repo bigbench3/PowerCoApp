@@ -24,7 +24,9 @@ public class Resource {
     private final float SCALE = 0.1f;
     private ArrayList<Integer> water, wind, solar, coal;
 
-    public Resource(Context context){
+    public Resource(Context context, String type1){
+
+        type = type1;
 
         water = new ArrayList<>();
         wind = new ArrayList<>();
@@ -56,13 +58,20 @@ public class Resource {
         int resourceLevel = getLevel();
 
         if(resourceType.equals("water")){
-            bitmap = BitmapFactory.decodeResource(context.getResources(), water.get(resourceLevel));
+//            bitmap = BitmapFactory.decodeResource(context.getResources(), water.get(resourceLevel));
+            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+
         } else if(resourceType.equals("wind")){
-            bitmap = BitmapFactory.decodeResource(context.getResources(), wind.get(resourceLevel));
+//            bitmap = BitmapFactory.decodeResource(context.getResources(), wind.get(resourceLevel));
+            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+
         } else if(resourceType.equals("solar")){
-            bitmap = BitmapFactory.decodeResource(context.getResources(), solar.get(resourceLevel));
+//            bitmap = BitmapFactory.decodeResource(context.getResources(), solar.get(resourceLevel));
+            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+
         } else{
-            bitmap = BitmapFactory.decodeResource(context.getResources(), coal.get(resourceLevel));
+//            bitmap = BitmapFactory.decodeResource(context.getResources(), coal.get(resourceLevel));
+            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
         }
 
 

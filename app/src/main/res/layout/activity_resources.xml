@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.elon.powerco.ResourcesActivity">
+
+    <RelativeLayout
+        android:id="@+id/resources"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Upgrade Water Plant"
+            android:id="@+id/waterView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:onClick="onWaterUpgrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upgrade"
+            android:id="@+id/waterUpgrade"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Upgrade Solar Farm"
+            android:id="@+id/solarView"
+            android:layout_below="@+id/waterUpgrade"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="41dp" />
+
+        <Button
+            android:onClick="onSolarUpgrade"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:text="Upgrade"
+            android:id="@+id/solarUpgrade"
+            android:layout_alignTop="@+id/solarView"
+            android:layout_alignStart="@+id/waterUpgrade"
+            android:layout_alignEnd="@+id/waterUpgrade" />
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Upgrade Wind Turbines"
+            android:id="@+id/windView"
+            android:layout_below="@+id/solarUpgrade"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="41dp" />
+
+        <Button
+            android:onClick="onWindUpgrade"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:text="Upgrade"
+            android:id="@+id/windUpgrade"
+            android:layout_alignTop="@+id/windView"
+            android:layout_alignStart="@+id/waterUpgrade"
+            android:layout_alignEnd="@+id/waterUpgrade" />
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Buy some dirty coal"
+            android:id="@+id/coalView"
+            android:layout_below="@+id/windUpgrade"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="41dp" />
+
+        <Button
+            android:onClick="onCoalUpgrade"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:id="@+id/coalUpgrade"
+            android:layout_alignTop="@+id/coalView"
+            android:layout_alignStart="@+id/windUpgrade"
+            android:layout_alignEnd="@+id/windUpgrade" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

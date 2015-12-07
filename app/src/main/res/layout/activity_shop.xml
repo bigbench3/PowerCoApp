@@ -9,226 +9,38 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.elon.powerco.ShopActivity">
 
-
-    <TabHost
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tabHost"
-        android:layout_alignParentTop="true"
+    <Button
+        android:id="@+id/amenities_button"
+        android:text="Upgrade Amenities"
+        android:textColor="#EEFF00"
+        android:textSize="30sp"
+        android:onClick="onAmenitiesClick"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/new_button"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp" />
 
-        >
+    <Button
+        android:id="@+id/resources_button"
+        android:text="Upgrade Resources"
+        android:textColor="#EEFF00"
+        android:textSize="30sp"
+        android:onClick="onResourcesClick"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_marginTop="154dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/amenities_button" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:id="@+id/amenities"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Hamster Runspeed (Zoom Zoom Little Guy)"
-                        android:id="@+id/runspeedView"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
-
-                    <Button
-                        android:onClick="onRunUpgrade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/runspeedUpgrade"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Hamster Wheel (Better Traction)"
-                        android:id="@+id/wheelView"
-                        android:layout_below="@+id/runspeedUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onWheelUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/wheelUpgrade"
-                        android:layout_alignTop="@+id/wheelView"
-                        android:layout_alignStart="@+id/runspeedUpgrade"
-                        android:layout_alignEnd="@+id/runspeedUpgrade" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Salesman          (Sell for more per Watt)"
-                        android:id="@+id/priceView"
-                        android:layout_below="@+id/wheelUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onPriceUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/priceUpgrade"
-                        android:layout_alignTop="@+id/priceView"
-                        android:layout_alignStart="@+id/wheelUpgrade"
-                        android:layout_alignEnd="@+id/wheelUpgrade" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Salesman          (Sell more Watts per sale)"
-                        android:id="@+id/saleSpeedView"
-                        android:layout_below="@+id/priceUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onSaleSpeedUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/saleSpeedUpgrade"
-                        android:layout_alignTop="@+id/saleSpeedView"
-                        android:layout_alignStart="@+id/priceUpgrade"
-                        android:layout_alignEnd="@+id/priceUpgrade" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade House                 (Pimp the crib)"
-                        android:id="@+id/houseView"
-                        android:layout_below="@+id/saleSpeedUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onHouseUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/houseUpgrade"
-                        android:layout_alignTop="@+id/houseView"
-                        android:layout_alignStart="@+id/saleSpeedUpgrade"
-                        android:layout_alignEnd="@+id/saleSpeedUpgrade" />
-
-                </RelativeLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/resources"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Water Plant"
-                        android:id="@+id/waterView"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
-
-                    <Button
-                        android:onClick="onWaterUpgrade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/waterUpgrade"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Solar Farm"
-                        android:id="@+id/solarView"
-                        android:layout_below="@+id/waterUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onSolarUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/solarUpgrade"
-                        android:layout_alignTop="@+id/solarView"
-                        android:layout_alignStart="@+id/waterUpgrade"
-                        android:layout_alignEnd="@+id/waterUpgrade" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Upgrade Wind Turbines"
-                        android:id="@+id/windView"
-                        android:layout_below="@+id/solarUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onWindUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upgrade"
-                        android:id="@+id/windUpgrade"
-                        android:layout_alignTop="@+id/windView"
-                        android:layout_alignStart="@+id/waterUpgrade"
-                        android:layout_alignEnd="@+id/waterUpgrade" />
-
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Buy some dirty coal"
-                        android:id="@+id/coalView"
-                        android:layout_below="@+id/windUpgrade"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="41dp" />
-
-                    <Button
-                        android:onClick="onCoalUpgrade"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="Buy"
-                        android:id="@+id/coalUpgrade"
-                        android:layout_alignTop="@+id/coalView"
-                        android:layout_alignStart="@+id/windUpgrade"
-                        android:layout_alignEnd="@+id/windUpgrade" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
 </RelativeLayout>

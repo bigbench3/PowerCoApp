@@ -33,8 +33,10 @@ public class Hamster {
 //        hamster.add(R.drawable.hamster1);
 //        hamster.add(R.drawable.hamster2);
 //        hamster.add(R.drawable.hamster3);
+//
+//        bitmap = BitmapFactory.decodeResource(context.getResources(), hamster.get(hamsterLevel));
+        bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
 
-        bitmap = BitmapFactory.decodeResource(context.getResources(), hamster.get(hamsterLevel));
 
         width = bitmap.getWidth() * SCALE;
         height = bitmap.getHeight() * SCALE;

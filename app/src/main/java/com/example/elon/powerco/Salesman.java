@@ -31,8 +31,10 @@ public class Salesman {
 //        salesman.add(R.drawable.salesman1);
 //        salesman.add(R.drawable.salesman2);
 //        salesman.add(R.drawable.salesman3);
+//
+//        bitmap = BitmapFactory.decodeResource(context.getResources(), salesman.get(level));
+        bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
 
-        bitmap = BitmapFactory.decodeResource(context.getResources(), salesman.get(level));
 
         width = bitmap.getWidth() * SCALE;
         height = bitmap.getHeight() * SCALE;
