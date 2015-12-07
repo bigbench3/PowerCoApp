@@ -61,8 +61,6 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         coal = new Resource(context, "coal");
         salesman = new Salesman(context);
         house = new House(context);
-        wattView = (TextView) findViewById(R.id.wattView);
-        moneyView = (TextView) findViewById(R.id.moneyView);
 
         // game loop thread -- add a handler to update the TextView
         thread = new GameLoopThread(msgHandler);
@@ -70,8 +68,8 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     Handler msgHandler = new Handler() {
             public void handleMessage(Message m){
-                getWattView().setText(m.getData().getString("watts"));
-                getMoneyView().setText((m.getData().getString("money")));
+                wattView.setText(m.getData().getString("watts"));
+                moneyView.setText((m.getData().getString("money")));
             }
     };
 
@@ -349,14 +347,12 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         return true;
     }
 
-    private void getPersistentData(Context context) throws IOException {
+    public void getPersistentData(Context context) throws IOException {
         BufferedReader reader = null;
         try {
             InputStream in = context.openFileInput(filename);
             reader = new BufferedReader(new InputStreamReader(in));
             String line = reader.readLine();
-            wattView.setText("Watts: " + getWatts());
-            moneyView.setText("Money: $" + getMoney());
         } finally {
             if (reader != null) {
                 reader.close();
@@ -364,7 +360,7 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         }
     }
 
-    private void putPersistentData(Context context) throws IOException {
+    public void putPersistentData(Context context) throws IOException {
         Writer writer = null;
         try {
             OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
@@ -400,6 +396,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setHamster(Hamster hamster) {
         this.hamster = hamster;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Resource getWater() {
@@ -408,6 +409,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setWater(Resource water) {
         this.water = water;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Resource getCoal() {
@@ -416,6 +422,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setCoal(Resource coal) {
         this.coal = coal;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Resource getWind() {
@@ -424,6 +435,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setWind(Resource wind) {
         this.wind = wind;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Resource getSolar() {
@@ -432,6 +448,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setSolar(Resource solar) {
         this.solar = solar;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Salesman getSalesman() {
@@ -440,6 +461,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setSalesman(Salesman salesman) {
         this.salesman = salesman;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public House getHouse() {
@@ -448,15 +474,34 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
     public void setHouse(House house) {
         this.house = house;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public int getWatts() { return watts; }
 
-    public void setWatts(int watts) { this.watts = watts; }
+    public void setWatts(int watts) {
+        this.watts = watts;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public float getMoney() { return money; }
 
-    public void setMoney(float money) { this.money = money; }
+    public void setMoney(float money) {
+        this.money = money;
+        try {
+            putPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public TextView getWattView() {
         return wattView;

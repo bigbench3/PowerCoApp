@@ -33,7 +33,6 @@ public class AmenitiesActivity extends Activity {
         Hamster hamster = loop.getHamster();
         hamster.setHamsterLevel(hamster.getHamsterLevel() + 1);
         loop.setHamster(hamster);
-
     }
 
     public void onWheelUpgrade(View view){
@@ -61,7 +60,7 @@ public class AmenitiesActivity extends Activity {
         GameLoopView loop = (GameLoopView)findViewById(R.id.GameLoopView);
         House house = loop.getHouse();
         house.setHouseLevel(house.getHouseLevel() + 1);
-
+        loop.setHouse(house);
     }
 
 }

@@ -19,8 +19,12 @@ public class GameActivity extends Activity {
     private Context context;
     private final String filename = "myoutput.txt";
     ArrayList<String> data = new ArrayList<String>();
+    private  TextView wattView;
+    private TextView moneyView;
+
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -28,9 +32,11 @@ public class GameActivity extends Activity {
         context = getBaseContext();
         Intent intent = getIntent();
         Boolean loadData = intent.getExtras().getBoolean("loadData");
-        TextView wattView = (TextView) findViewById(R.id.wattView);
-        TextView moneyView = (TextView) findViewById(R.id.moneyView);
+        wattView = (TextView) findViewById(R.id.wattView);
+        moneyView = (TextView) findViewById(R.id.moneyView);
         GameLoopView gameLoopView = (GameLoopView) findViewById(R.id.GameLoopView);
+        gameLoopView.setWattView(wattView);
+        gameLoopView.setMoneyView(moneyView);
 
         if(!loadData){
             gameLoopView.setReset(true);

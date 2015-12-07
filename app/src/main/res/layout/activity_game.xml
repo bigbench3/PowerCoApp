@@ -10,13 +10,13 @@
     tools:context="com.example.elon.powerco.GameActivity">
 
     <TextView
-        android:text="Fart"
+        android:text=""
         android:id="@+id/wattView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:text="Fuck Me"
+        android:text=""
         android:id="@+id/moneyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
