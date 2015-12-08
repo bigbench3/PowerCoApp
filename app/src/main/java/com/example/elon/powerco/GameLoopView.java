@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 
 
 /**
@@ -40,6 +41,7 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
     private Resource water, coal, wind, solar;
     private Salesman salesman;
     private House house;
+    private ArrayList<Integer> data = new ArrayList<Integer>();
 
 
     public GameLoopView(Context context, AttributeSet attrs) {
@@ -64,6 +66,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
 
         // game loop thread -- add a handler to update the TextView
         thread = new GameLoopThread(msgHandler);
+        try{
+            getPersistentData(context);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     Handler msgHandler = new Handler() {
@@ -101,6 +108,7 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
                 thread.join();
                 retry = false;
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -132,81 +140,74 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
                 setWatts(0);
                 setMoney(0);
 
-                Hamster hamster1 = getHamster();
-                hamster1.setHamsterLevel(0);
-                hamster1.setWheelLevel(0);
-                setHamster(hamster1);
+                hamster.setHamsterLevel(0);
+                hamster.setWheelLevel(0);
+                setHamster(hamster);
 
-                Resource water1 = getWater();
-                water1.setType("water");
-                water1.setLevel(0);
-                setWater(water1);
+                water.setType("water");
+                water.setLevel(0);
+                setWater(water);
 
-                Resource solar1 = getSolar();
-                solar1.setType("solar");
-                solar1.setLevel(0);
-                setSolar(solar1);
+                solar.setType("solar");
+                solar.setLevel(0);
+                setSolar(solar);
 
-                Resource wind1 = getWind();
-                wind1.setType("wind");
-                wind1.setLevel(0);
-                setWind(wind1);
+                wind.setType("wind");
+                wind.setLevel(0);
+                setWind(wind);
 
-                Resource coal1 = getCoal();
-                coal1.setType("coal");
-                coal1.setLevel(0);
-                setCoal(coal1);
+                coal.setType("coal");
+                coal.setLevel(0);
+                setCoal(coal);
 
-                Salesman salesman1 = getSalesman();
-                salesman1.setSpeed(10);
-                salesman1.setPrice(1);
-                setSalesman(salesman1);
+                salesman.setSpeed(10);
+                salesman.setPrice(1);
+                setSalesman(salesman);
 
-                House house1 = getHouse();
-                house1.setHouseLevel(0);
-                setHouse(house1);
+                house.setHouseLevel(0);
+                setHouse(house);
 
-            }
-            else{
+            } else {
+                int watts = data.get(0);
+                int money = data.get(1);
+                setWatts(watts);
+                setMoney(money);
 
+                int hamsterLevel = data.get(2);
+                int wheelLevel= data.get(3);
+                hamster.setHamsterLevel(hamsterLevel);
+                hamster.setWheelLevel(wheelLevel);
+                setHamster(hamster);
 
-                setWatts(0);
-                setMoney(0);
+                int waterLevel = data.get(4);
+                water.setType("water");
+                water.setLevel(waterLevel);
+                setWater(water);
 
-                Hamster hamster1 = getHamster();
-                hamster1.setHamsterLevel(0);
-                hamster1.setWheelLevel(0);
-                setHamster(hamster1);
+                int solarLevel = data.get(5);
+                solar.setType("solar");
+                solar.setLevel(solarLevel);
+                setSolar(solar);
 
-                Resource water1 = getWater();
-                water1.setType("water");
-                water1.setLevel(0);
-                setWater(water1);
+                int windLevel = data.get(6);
+                wind.setType("wind");
+                wind.setLevel(windLevel);
+                setWind(wind);
 
-                Resource solar1 = getSolar();
-                solar1.setType("solar");
-                solar1.setLevel(0);
-                setSolar(solar1);
+                int coalLevel = data.get(7);
+                coal.setType("coal");
+                coal.setLevel(coalLevel);
+                setCoal(coal);
 
-                Resource wind1 = getWind();
-                wind1.setType("wind");
-                wind1.setLevel(0);
-                setWind(wind1);
+                int saleSpeed = data.get(8);
+                int salePrice = data.get(9);
+                salesman.setSpeed(saleSpeed);
+                salesman.setPrice(salePrice);
+                setSalesman(salesman);
 
-                Resource coal1 = getCoal();
-                coal1.setType("coal");
-                coal1.setLevel(0);
-                setCoal(coal1);
-
-                Salesman salesman1 = getSalesman();
-                salesman1.setSpeed(10);
-                salesman1.setPrice(1);
-                setSalesman(salesman1);
-
-                House house1 = getHouse();
-                house1.setHouseLevel(0);
-                setHouse(house1);
-
+                int houseLevel = data.get(10);
+                house.setHouseLevel(houseLevel);
+                setHouse(house);
             }
 
         }
@@ -352,7 +353,13 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         try {
             InputStream in = context.openFileInput(filename);
             reader = new BufferedReader(new InputStreamReader(in));
-            String line = reader.readLine();
+            String test;
+            while ((test = reader.readLine()) != null){
+                String line = reader.readLine();
+                int level = Integer.parseInt(line);
+                data.add(level);
+            }
+
         } finally {
             if (reader != null) {
                 reader.close();
@@ -365,6 +372,17 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         try {
             OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
+            writer.write(watts);
+            writer.write((int)money);
+            writer.write(hamster.getHamsterLevel());
+            writer.write(hamster.getWheelLevel());
+            writer.write(water.getLevel());
+            writer.write(solar.getLevel());
+            writer.write(wind.getLevel());
+            writer.write(coal.getLevel());
+            writer.write((int)salesman.getSpeed());
+            writer.write((int)salesman.getPrice());
+            writer.write(house.getHouseLevel());
         } finally {
             if (writer != null) {
                 writer.close();
@@ -511,4 +529,11 @@ public class GameLoopView extends SurfaceView implements SurfaceHolder.Callback 
         return moneyView;
     }
 
+    public ArrayList<Integer> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<Integer> data) {
+        this.data = data;
+    }
 }

@@ -15,46 +15,34 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class ShopActivity extends Activity {
+
+    private ArrayList<Integer> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
+        Intent intent = getIntent();
+        data = intent.getExtras().getIntegerArrayList("data");
     }
 
     public void onAmenitiesClick(View view){
 
         Intent intent = new Intent(this, AmenitiesActivity.class);
+        intent.putExtra("data", data);
         startActivity(intent);
     }
 
     public void onResourcesClick(View view){
 
         Intent intent = new Intent(this, ResourcesActivity.class);
+        intent.putExtra("data", data);
         startActivity(intent);
     }
 
-
-
-
-
-    public void onWaterUpgrade(){
-
-    }
-
-    public void onWindUpgrade(){
-
-    }
-
-    public void onSolarUpgrade(){
-
-    }
-
-    public void onCoalUpgrade(){
-
-    }
 
 }

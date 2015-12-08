@@ -21,6 +21,7 @@ public class GameActivity extends Activity {
     ArrayList<String> data = new ArrayList<String>();
     private  TextView wattView;
     private TextView moneyView;
+    private GameLoopView gameLoopView;
 
 
     @Override
@@ -32,19 +33,25 @@ public class GameActivity extends Activity {
         context = getBaseContext();
         Intent intent = getIntent();
         Boolean loadData = intent.getExtras().getBoolean("loadData");
+        ArrayList<Integer> data = intent.getExtras().getIntegerArrayList("data");
         wattView = (TextView) findViewById(R.id.wattView);
         moneyView = (TextView) findViewById(R.id.moneyView);
-        GameLoopView gameLoopView = (GameLoopView) findViewById(R.id.GameLoopView);
+        gameLoopView = (GameLoopView) findViewById(R.id.GameLoopView);
         gameLoopView.setWattView(wattView);
         gameLoopView.setMoneyView(moneyView);
 
         if(!loadData){
             gameLoopView.setReset(true);
         }
+
+        if(data != null){
+            gameLoopView.setData(data);
+        }
     }
 
     public void onShop(View view){
         Intent intent = new Intent(this, ShopActivity.class);
+        intent.putExtra("data", gameLoopView.getData());
         startActivity(intent);
     }
 
