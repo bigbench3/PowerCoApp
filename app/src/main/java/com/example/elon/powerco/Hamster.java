@@ -29,14 +29,12 @@ public class Hamster {
 
         hamster = new ArrayList<>();
 
-//        hamster.add(R.drawable.hamster0);
-//        hamster.add(R.drawable.hamster1);
-//        hamster.add(R.drawable.hamster2);
-//        hamster.add(R.drawable.hamster3);
-//
-//        bitmap = BitmapFactory.decodeResource(context.getResources(), hamster.get(hamsterLevel));
-        bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+        hamster.add(R.drawable.hamster0);
+        hamster.add(R.drawable.hamster1);
+        hamster.add(R.drawable.hamster2);
+        hamster.add(R.drawable.hamster3);
 
+        bitmap = BitmapFactory.decodeResource(context.getResources(), hamster.get(hamsterLevel));
 
         width = bitmap.getWidth() * SCALE;
         height = bitmap.getHeight() * SCALE;
@@ -58,8 +56,8 @@ public class Hamster {
         // draw the Hamster
         canvas.drawBitmap(bitmap,
                 null,
-                new Rect((int) (x - width/2), (int) (y- height/2),
-                        (int) (x + width/2), (int) (y + height/2)),
+                new Rect(300, 300,
+                        850,1200),
                 null);
     }
 

@@ -29,13 +29,12 @@ public class House {
         house = new ArrayList<>();
 
 
-//    house.add(R.drawable.house0);
-//    house.add(R.drawable.house1);
-//    house.add(R.drawable.house2);
-//    house.add(R.drawable.house3);
+        house.add(R.drawable.house0);
+        house.add(R.drawable.house1);
+        house.add(R.drawable.house2);
+        house.add(R.drawable.house3);
 
-//    bitmap = BitmapFactory.decodeResource(context.getResources(), house.get(houseLevel));
-        bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), house.get(houseLevel));
 
 
         width = bitmap.getWidth() * SCALE;
@@ -57,8 +56,8 @@ public class House {
         // draw the house
         canvas.drawBitmap(bitmap,
                 null,
-                new Rect((int) (x + width/2), (int) (y- height/2),
-                        (int) (x + x), (int) (y + height/2)),
+                new Rect(350, 1225,
+                        800, 1500),
                 null);
     }
 

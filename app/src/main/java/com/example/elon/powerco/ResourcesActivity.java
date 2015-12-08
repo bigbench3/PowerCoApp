@@ -13,6 +13,7 @@ public class ResourcesActivity extends Activity {
     private ArrayList<Integer> data;
     private int money;
     private GameActivity gameActivity;
+    private boolean shop = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,16 @@ public class ResourcesActivity extends Activity {
 
         int waterLevel = data.get(4);
 
-        if(money >= (500 * waterLevel + 1) && waterLevel < 3) {
-            money = money - (500 * waterLevel + 1);
+        if(money >= 500 && waterLevel < 3) {
+            money = money - (500);
             data.set(1, money);
             data.set(4, waterLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
 
     }
@@ -44,15 +47,17 @@ public class ResourcesActivity extends Activity {
 
         int windLevel = data.get(6);
 
-        if(money >= (300 * windLevel + 1) && windLevel < 3) {
+        if(money >= 300 && windLevel < 3) {
 
-            money = money - (300 * windLevel + 1);
+            money = money - (300);
             data.set(1, money);
             data.set(6, windLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
 
     }
@@ -61,15 +66,17 @@ public class ResourcesActivity extends Activity {
 
         int solarLevel = data.get(5);
 
-        if(money >= (400 * solarLevel + 1) && solarLevel < 3) {
+        if(money >= 400 && solarLevel < 3) {
 
-            money = money - (400 * solarLevel + 1);
+            money = money - (400);
             data.set(1, money);
             data.set(5, solarLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -81,11 +88,13 @@ public class ResourcesActivity extends Activity {
 
             money = money - 500;
             data.set(1, money);
-            data.set(7, coalLevel);
+            data.set(7, coalLevel + 10);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 

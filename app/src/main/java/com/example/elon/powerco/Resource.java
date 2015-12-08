@@ -24,6 +24,8 @@ public class Resource {
     private final float SCALE = 0.1f;
     private ArrayList<Integer> water, wind, solar, coal;
 
+
+
     public Resource(Context context, String type1){
 
         type = type1;
@@ -33,45 +35,39 @@ public class Resource {
         solar = new ArrayList<>();
         coal = new ArrayList<>();
 
-//        water.add(R.drawable.water0);
-//        water.add(R.drawable.water1);
-//        water.add(R.drawable.water2);
-//        water.add(R.drawable.water3);
-//
-//        wind.add(R.drawable.wind0);
-//        wind.add(R.drawable.wind1);
-//        wind.add(R.drawable.wind2);
-//        wind.add(R.drawable.wind3);
-//
-//        solar.add(R.drawable.solar0);
-//        solar.add(R.drawable.solar1);
-//        solar.add(R.drawable.solar2);
-//        solar.add(R.drawable.solar3);
-//
-//        coal.add(R.drawable.coal0);
-//        coal.add(R.drawable.coal1);
-//        coal.add(R.drawable.coal2);
-//        coal.add(R.drawable.coal3);
+        water.add(R.drawable.water0);
+        water.add(R.drawable.water1);
+        water.add(R.drawable.water2);
+        water.add(R.drawable.water3);
+
+        wind.add(R.drawable.wind0);
+        wind.add(R.drawable.wind1);
+        wind.add(R.drawable.wind2);
+        wind.add(R.drawable.wind3);
+
+        solar.add(R.drawable.solar0);
+        solar.add(R.drawable.solar1);
+        solar.add(R.drawable.solar2);
+        solar.add(R.drawable.solar3);
+
+        coal.add(R.drawable.coal0);
 
 
         String resourceType = getType();
         int resourceLevel = getLevel();
 
         if(resourceType.equals("water")){
-//            bitmap = BitmapFactory.decodeResource(context.getResources(), water.get(resourceLevel));
-            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), water.get(resourceLevel));
 
         } else if(resourceType.equals("wind")){
-//            bitmap = BitmapFactory.decodeResource(context.getResources(), wind.get(resourceLevel));
-            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+
+            bitmap = BitmapFactory.decodeResource(context.getResources(), wind.get(resourceLevel));
 
         } else if(resourceType.equals("solar")){
-//            bitmap = BitmapFactory.decodeResource(context.getResources(), solar.get(resourceLevel));
-            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), solar.get(resourceLevel));
 
-        } else{
-//            bitmap = BitmapFactory.decodeResource(context.getResources(), coal.get(resourceLevel));
-            bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.pb_sq_40690_lg);
+        } else if(resourceType.equals("coal")){
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coal0);
         }
 
 
@@ -97,31 +93,31 @@ public class Resource {
         if(type.equals("water")) {
             canvas.drawBitmap(bitmap,
                     null,
-                    new Rect(0, 0,
-                            (int) (x - width / 2), (int) (y - screenHeight/ 2)),
+                    new Rect(0, 300,
+                            250, 550),
                     null);
         }
 
         if(type.equals("solar")) {
             canvas.drawBitmap(bitmap,
                     null,
-                    new Rect(0, (int)(y - screenHeight/2),
-                            (int) (x - width / 2), (int) (y)),
+                    new Rect(0, 600,
+                            250, 850),
                     null);
         }
 
         if(type.equals("wind")) {
             canvas.drawBitmap(bitmap,
                     null,
-                    new Rect(0, (int)(y),
-                            (int) (x - width / 2), (int) (y + screenHeight/2)),
+                    new Rect(900, 300,
+                            1250, 550),
                     null);
 
             if(type.equals("coal")) {
                 canvas.drawBitmap(bitmap,
                         null,
-                        new Rect(0, (int)(y + screenHeight),
-                                (int) (x - width / 2), (int) (screenHeight)),
+                        new Rect(900, 600,
+                                1250, 850),
                         null);
             }
         }
@@ -142,6 +138,14 @@ public class Resource {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
 }

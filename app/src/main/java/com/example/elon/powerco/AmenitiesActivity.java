@@ -25,6 +25,7 @@ public class AmenitiesActivity extends Activity {
 
     private int money;
     private ArrayList<Integer> data;
+    private boolean shop = true;
 
 
     @Override
@@ -46,9 +47,11 @@ public class AmenitiesActivity extends Activity {
             data.set(1, money);
             data.set(2, hamsterLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
 
     }
@@ -57,15 +60,17 @@ public class AmenitiesActivity extends Activity {
 
         int wheelLevel = data.get(3);
 
-        if(money >= (300 * (wheelLevel + 1) * 2) && wheelLevel < 3) {
+        if(money >= 300 && wheelLevel < 3) {
 
-            money = money - 200;
+            money = money - 300;
             data.set(1, money);
             data.set(3, wheelLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -75,13 +80,15 @@ public class AmenitiesActivity extends Activity {
 
         if(money >= (1000) && price < 3) {
 
-            money = money - 200;
+            money = money - 1000;
             data.set(1, money);
             data.set(9, price + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -91,13 +98,15 @@ public class AmenitiesActivity extends Activity {
 
         if(money >= (1500) && speed < 3) {
 
-            money = money - 200;
+            money = money - 1500;
             data.set(1, money);
             data.set(8, speed + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -106,13 +115,15 @@ public class AmenitiesActivity extends Activity {
         int houseLevel = data.get(10);
 
         if(money >= 10000 && houseLevel < 3){
-            money = money - 200;
+            money = money -10000;
             data.set(1, money);
             data.set(10, houseLevel + 1);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("data", data);
-            startActivity(intent);
+            intent.putExtra("shop", shop);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 

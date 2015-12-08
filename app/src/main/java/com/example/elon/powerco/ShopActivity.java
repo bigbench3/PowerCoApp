@@ -34,15 +34,26 @@ public class ShopActivity extends Activity {
 
         Intent intent = new Intent(this, AmenitiesActivity.class);
         intent.putExtra("data", data);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void onResourcesClick(View view){
 
         Intent intent = new Intent(this, ResourcesActivity.class);
         intent.putExtra("data", data);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
 
+        data = result.getIntegerArrayListExtra("data");
+
+        Intent newIntent = new Intent();
+        newIntent.putExtra("data", data);
+        setResult(Activity.RESULT_OK, newIntent);
+
+        finish();
+    }
 }

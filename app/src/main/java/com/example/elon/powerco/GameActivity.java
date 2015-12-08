@@ -18,10 +18,10 @@ public class GameActivity extends Activity {
 
     private Context context;
     private final String filename = "myoutput.txt";
-    ArrayList<String> data = new ArrayList<String>();
     private  TextView wattView;
     private TextView moneyView;
     private GameLoopView gameLoopView;
+    private boolean loadData, shop, fromStart;
 
 
     @Override
@@ -32,27 +32,51 @@ public class GameActivity extends Activity {
 
         context = getBaseContext();
         Intent intent = getIntent();
-        Boolean loadData = intent.getExtras().getBoolean("loadData");
-        ArrayList<Integer> data = intent.getExtras().getIntegerArrayList("data");
+        fromStart = intent.getExtras().getBoolean("fromStart");
+        loadData = intent.getExtras().getBoolean("loadData");
         wattView = (TextView) findViewById(R.id.wattView);
         moneyView = (TextView) findViewById(R.id.moneyView);
         gameLoopView = (GameLoopView) findViewById(R.id.GameLoopView);
         gameLoopView.setWattView(wattView);
         gameLoopView.setMoneyView(moneyView);
 
-        if(!loadData){
-            gameLoopView.setReset(true);
+        if(!loadData && fromStart){
+
+            System.out.println("It gets here");
+
+            gameLoopView.resetGame();
+
+            try{
+
+                gameLoopView.putPersistentData(context);
+
+            } catch (Exception e){
+
+            }
+
+            fromStart = false;
         }
 
-        if(data != null){
-            gameLoopView.setData(data);
-        }
     }
 
     public void onShop(View view){
         Intent intent = new Intent(this, ShopActivity.class);
         intent.putExtra("data", gameLoopView.getData());
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<Integer> stats = data.getIntegerArrayListExtra("data");
+        gameLoopView.setData(stats);
+
+        try {
+            gameLoopView.putPersistentData(context);
+        }catch (Exception e){
+
+        }
+    }
 }

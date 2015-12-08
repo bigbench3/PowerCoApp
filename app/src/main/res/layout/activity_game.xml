@@ -43,7 +43,7 @@
     <com.example.elon.powerco.GameLoopView
         android:id="@+id/GameLoopView"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="820dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 

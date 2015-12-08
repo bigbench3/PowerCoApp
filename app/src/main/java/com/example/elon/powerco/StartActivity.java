@@ -10,7 +10,7 @@ import android.view.View;
 
 public class StartActivity extends Activity {
 
-    private boolean loadData;
+    private boolean loadData, fromStart;
     private Intent intent;
 
     @Override
@@ -22,15 +22,21 @@ public class StartActivity extends Activity {
 
     public void onNewClick(View view){
         loadData = false;
+        fromStart = true;
         intent = new Intent(this, GameActivity.class);
         intent.putExtra("loadData", loadData);
+        intent.putExtra("fromStart", fromStart);
         startActivity(intent);
+        finish();
     }
 
     public void onContinueClick(View view){
         loadData = true;
+        fromStart = true;
         intent = new Intent(this, GameActivity.class);
         intent.putExtra("loadData", loadData);
+        intent.putExtra("fromStart", fromStart);
         startActivity(intent);
+        finish();
     }
 }
